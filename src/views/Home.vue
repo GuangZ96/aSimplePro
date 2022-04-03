@@ -11,6 +11,7 @@ export default defineComponent({
 <template>
     <div class="wrapper">
         <!-- <van-button type="primary" plain>按钮</van-button> -->
+        hello!
     </div>
 </template>
 
