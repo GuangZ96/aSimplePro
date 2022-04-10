@@ -16,6 +16,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.23",
     "@types/webpack-merge": "^5.0.0",
     "@vue/cli-plugin-babel": "~4.5.11",
     "@vue/cli-plugin-router": "~4.5.11",

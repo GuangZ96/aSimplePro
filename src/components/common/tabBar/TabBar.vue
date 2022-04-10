@@ -1,6 +1,7 @@
 <script lang="ts">
 import { 
     defineComponent,
+    getCurrentInstance,
     reactive,
     toRefs, 
 } from 'vue'
@@ -13,13 +14,22 @@ export default defineComponent({
         [TabbarItem.name]: TabbarItem
     },
     setup() {
+        let { ctx: _this }: any = getCurrentInstance()
         const state = reactive({
             active: 0, // 当前选中标签num
-            // tabbarArr: []
+            tabbarArr: [
+                { icon: 'home-o', path: '/', name: '首页', index: 0 },
+                { icon: 'search', path: '/discover', name: '发现', index: 1 },
+                { icon: 'setting-o', path: '/Me', name: '我的', index: 2 },
+            ]
         })
 
         const onChange = (index: number) => {
-            console.log("index------>", index)
+            state.tabbarArr.forEach(element => {
+                if (index === element.index) {
+                    _this.$.appContext.config.globalProperties.$router.push(element.path)
+                }
+            });
         }
 
         return {
@@ -36,9 +46,12 @@ export default defineComponent({
         v-model="active"
         @change='onChange'
     >
-        <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-        <van-tabbar-item icon="search" dot>发现</van-tabbar-item>
-        <van-tabbar-item icon="setting-o" badge="20">我的</van-tabbar-item>
+        <van-tabbar-item v-for="item in tabbarArr"
+            :key="item.index"
+            :icon="item.icon"
+        >
+            {{ item.name }}
+        </van-tabbar-item>
     </van-tabbar>
 </template>
 
